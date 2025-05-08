@@ -1,0 +1,79 @@
+.crossword-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.crossword-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  color: #2980b9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.crossword-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px 30px;
+  margin: 20px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.crossword-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.crossword-grid {
+  display: grid;
+  gap: 1px;
+  background-color: #555;
+  border: 1px solid #333;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: white;
+}
+
+.cell.black {
+  background-color: #333;
+}
+
+.cell.empty {
+  background-color: #f0f0f0;
+  cursor: text;
+}
+
+.cell.empty:focus {
+  outline: 2px solid #007bff;
+}
+
+@media (max-width: 768px) {
+  .cell {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+  }
+}
+
+.green-button {
+  background-color: green;
+  color: white; /* Optional: change text color for better contrast */
+} 
