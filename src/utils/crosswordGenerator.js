@@ -196,10 +196,10 @@ function removeRandomLetters(grid, usedWords, minRemovalRate) {
         const [x, y, dx, dy] = findWordPosition(word, grid);
         if (x !== -1) {
             // 移动单词中的字母
-            console.log(`Removing letters from ${word} at (${x}, ${y}) with direction (${dx}, ${dy})`);
+            // console.log(`Removing letters from ${word} at (${x}, ${y}) with direction (${dx}, ${dy})`);
             removeLettersFromWord(word, x, y, dx, dy, grid, wordRemovalRate);
         } else {
-            console.log(`Word ${word} not found in grid, skipping`);
+            // console.log(`Word ${word} not found in grid, skipping`);
         }
     }
 }
@@ -218,7 +218,7 @@ function findWordPosition(word, grid) {
                     }
                 }
                 if (match) {
-                    console.log(`Found ${word} horizontally at (${x}, ${y})`);
+                    // console.log(`Found ${word} horizontally at (${x}, ${y})`);
                     return [x, y, 1, 0];
                 }
             }
@@ -233,13 +233,13 @@ function findWordPosition(word, grid) {
                     }
                 }
                 if (match) {
-                    console.log(`Found ${word} vertically at (${x}, ${y})`);
+                    // console.log(`Found ${word} vertically at (${x}, ${y})`);
                     return [x, y, 0, 1];
                 }
             }
         }
     }
-    console.log(`Word ${word} not found in grid`);
+    // console.log(`Word ${word} not found in grid`);
     return [-1, -1, 0, 0]; // 未找到单词
 }
 
@@ -248,7 +248,7 @@ function removeLettersFromWord(word, x, y, dx, dy, grid, removalRate) {
     const letterIndices = [];
     const crossPoints = [];
 
-    console.log(`Analyzing word: ${word} at position (${x}, ${y}) with direction (${dx}, ${dy})`);
+    // console.log(`Analyzing word: ${word} at position (${x}, ${y}) with direction (${dx}, ${dy})`);
 
     // 识别单词中的字母和交叉点
     for (let i = 0; i < word.length; i++) {
@@ -256,22 +256,22 @@ function removeLettersFromWord(word, x, y, dx, dy, grid, removalRate) {
         const cy = y + dy * i;
         
         // 添加调试信息
-        console.log(`Checking letter ${word[i]} at (${cx}, ${cy}). Grid value: ${grid[cy][cx]}`);
+        // console.log(`Checking letter ${word[i]} at (${cx}, ${cy}). Grid value: ${grid[cy][cx]}`);
         
         if (grid[cy][cx] === word[i]) {
             const isCross = isCrossPoint(cx, cy, grid);
-            console.log(`Letter ${word[i]} at (${cx}, ${cy}): ${isCross ? 'Cross point' : 'Not cross point'}`);
+            // console.log(`Letter ${word[i]} at (${cx}, ${cy}): ${isCross ? 'Cross point' : 'Not cross point'}`);
             if (isCross) {
                 crossPoints.push(i);
             } else {
                 letterIndices.push(i);
             }
         } else {
-            console.log(`Mismatch at (${cx}, ${cy}): Expected ${word[i]}, found ${grid[cy][cx]}`);
+            // console.log(`Mismatch at (${cx}, ${cy}): Expected ${word[i]}, found ${grid[cy][cx]}`);
         }
     }
 
-    console.log(`Word: ${word}, Cross points: ${crossPoints.length}, Removable letters: ${letterIndices.length}`);
+    // console.log(`Word: ${word}, Cross points: ${crossPoints.length}, Removable letters: ${letterIndices.length}`);
 
     let lettersToRemove = Math.floor(letterIndices.length * removalRate);
     lettersToRemove = Math.max(1, Math.min(lettersToRemove, letterIndices.length - 1));
@@ -281,7 +281,7 @@ function removeLettersFromWord(word, x, y, dx, dy, grid, removalRate) {
         lettersToRemove = 1;
     }
 
-    console.log(`Letters to remove: ${lettersToRemove}`);
+    // console.log(`Letters to remove: ${lettersToRemove}`);
 
     //随机选择要移除的字母
     const removedIndices = new Set();
@@ -295,7 +295,7 @@ function removeLettersFromWord(word, x, y, dx, dy, grid, removalRate) {
         }
     }
 
-    console.log(`Removed letters: ${Array.from(removedIndices).join(', ')}`);
+    // console.log(`Removed letters: ${Array.from(removedIndices).join(', ')}`);
 
     // 检查并修复连续字母的情况
     const maxConsecutiveLetters = 3;
