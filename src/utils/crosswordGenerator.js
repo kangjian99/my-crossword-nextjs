@@ -32,17 +32,31 @@ export function generateCrossword(words, size, difficulty) {
     // 放置第一个单词在中央范围
     if (words.length > 0) {
         const firstWord = words[0];
-        const centralX = Math.floor((size - firstWord.length) / 2);
-        const centralY = Math.floor(size / 2);
+        const isHorizontal = Math.random() < 0.5; // 随机决定方向
 
-        // 允许的偏移量范围（例如±2）
-        const offsetX = getRandomInt(-2, 2);
-        const offsetY = getRandomInt(-2, 2);
+        let startX, startY, dx, dy;
 
-        const startX = clamp(centralX + offsetX, 0, size - firstWord.length);
-        const startY = clamp(centralY + offsetY, 0, size - 1);
+        if (isHorizontal) {
+            const centralX = Math.floor((size - firstWord.length) / 2);
+            const centralY = Math.floor(size / 2);
+            const offsetX = getRandomInt(-2, 2);
+            const offsetY = getRandomInt(-2, 2);
+            startX = clamp(centralX + offsetX, 0, size - firstWord.length);
+            startY = clamp(centralY + offsetY, 0, size - 1);
+            dx = 1;
+            dy = 0;
+        } else {
+            const centralX = Math.floor(size / 2);
+            const centralY = Math.floor((size - firstWord.length) / 2);
+            const offsetX = getRandomInt(-2, 2);
+            const offsetY = getRandomInt(-2, 2);
+            startX = clamp(centralX + offsetX, 0, size - 1);
+            startY = clamp(centralY + offsetY, 0, size - firstWord.length);
+            dx = 0;
+            dy = 1;
+        }
 
-        placeWordOnGrid(firstWord, startX, startY, 1, 0, grid);
+        placeWordOnGrid(firstWord, startX, startY, dx, dy, grid);
         usedWords.push(firstWord);
         words = words.slice(1);
     }
@@ -79,8 +93,9 @@ function calculateCrossPotential(words) {
 
 function countCommonLetters(word1, word2) {
     let count = 0;
-    for (const letter of word1) {
-        if (word2.includes(letter)) {
+    const word2Letters = new Set(word2); // 将 word2 转换为 Set
+    for (const letter of new Set(word1)) { // 确保 word1 中的字母也是唯一的
+        if (word2Letters.has(letter)) {
             count++;
         }
     }
